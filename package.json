@@ -1,0 +1,19 @@
+{
+  "name": "vefa-html-loader",
+  "version": "1.0.0",
+  "description": "Webpack loader for Pug.JS",
+  "author": "Cobey Potter <cobey@wellfire.co> (http://wellfire.co)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vefari/vefa-html-loader.git"
+  },
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/vefari/vefa-html-loaderissues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "0.2.x",
+    "pug": "^2.0.0-alpha8"
+  }
+}
