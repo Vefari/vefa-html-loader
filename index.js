@@ -19,6 +19,6 @@ module.exports = function (source) {
 
     tmplFunc.dependencies.map( this.addDependency.bind(this) );
     
-    tmplFunc(config.locals);
-    return "";
+    // we need to return the rendered template so we can output it
+    return tmplFunc(config.locals);
 }

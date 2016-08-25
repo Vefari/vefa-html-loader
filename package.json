@@ -1,6 +1,6 @@
 {
   "name": "vefa-html-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack loader for Pug.JS",
   "author": "Cobey Potter <cobey@wellfire.co> (http://wellfire.co)",
   "repository": {
