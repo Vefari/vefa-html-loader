@@ -10,10 +10,13 @@ module.exports = function (source) {
     
     // fill out anything else needed in the config
     config.filename = this.resourcePath;
-    config.basedir = config.locals.basedir;
     config.doctype = "html";
     config.compileDebug = false;
-    
+
+    // we can overload the webpack options object to share locals across files
+    // if thats not present, then lets go ahead and just grab any configuration locals
+    config.locals = utils.getLoaderConfig(this, "locals");
+
     // compile the template to a function
     const tmplFunc = pug.compile(source, config);
 
