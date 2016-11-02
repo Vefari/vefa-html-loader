@@ -6,7 +6,7 @@ module.exports = function (source) {
     this.cacheable && this.cacheable(true);
     
     // get config
-    var config = utils.getLoaderConfig(this, "pug");
+    let config = utils.getLoaderConfig(this, "pug");
     
     // fill out anything else needed in the config
     config.filename = this.resourcePath;
@@ -19,11 +19,33 @@ module.exports = function (source) {
     config.locals = utils.getLoaderConfig(this, "locals");
     config.basedir = config.locals.basedir;
 
-    // compile the template to a function
-    const tmplFunc = pug.compile(source, config);
-
-    tmplFunc.dependencies.map( this.addDependency.bind(this) );
+    let tmplFunc = "";
     
-    // we need to return the rendered template so we can output it
-    return tmplFunc(config.locals);
+    // if data, then we are using markdown files
+    if ( source.data ){
+        config.locals.page = source.data;
+        
+        if (source.content) {
+            config.locals.page.content = source.content;    
+        }
+        
+        if (source.data.slug) {
+            config.filename = `${source.data.slug}.html`;
+            this.resourcePath = `${source.data.slug}`;
+        }
+        tmplFunc = pug.compile(source.data.template, config);
+        tmplFunc.dependencies.map( this.addDependency.bind(this) );
+        // we need to return the rendered template so we can output it
+        source.content = tmplFunc(config.locals);
+        source.resourcePath = this.resourcePath;
+    }
+    else {
+        // compile the template to a function
+        tmplFunc = pug.compile(source, config);
+        tmplFunc.dependencies.map( this.addDependency.bind(this) );
+        // we need to return the rendered template so we can output it
+        source = tmplFunc(config.locals);
+    }
+    
+    return source;
 }
