@@ -6,7 +6,7 @@ module.exports = function (source) {
     this.cacheable && this.cacheable(true);
     
     // get config
-    let config = utils.getLoaderConfig(this);
+    let config = utils.getOptions(this);
 
     // fill out anything else needed in the config
     config.filename = this.resourcePath
@@ -21,6 +21,7 @@ module.exports = function (source) {
 
     // if data, then we are using markdown files
     if ( source.data ){
+
         config.locals.page = source.data;
         
         if (source.content) {
@@ -32,10 +33,10 @@ module.exports = function (source) {
             this.resourcePath = `${source.data.slug}`;
         }
 
-        
         tmplFunc = pug.compile(source.data.template, config);
         tmplFunc.dependencies.map( this.addDependency.bind(this) );
         // we need to return the rendered template so we can output it
+
         source.content = tmplFunc(config.locals);
         source.resourcePath = this.resourcePath;
     }
