@@ -12,7 +12,10 @@ module.exports = function (source) {
     config.filename = this.resourcePath
     config.doctype = config.doctype || "html"
     config.compileDebug = config.compileDebug || false
+    config.self = config.self || true
+    config.debug = config.debug || false
     config.pretty = config.pretty || true
+    config.cache = config.cache || true
     
     config.basedir = config.locals.basedir
 
