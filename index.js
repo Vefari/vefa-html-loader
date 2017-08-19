@@ -25,29 +25,24 @@ module.exports = function (source) {
         content: source.content ? source.content : source
     }
     let tmplFunc = ""
-    // console.log(context.content)
-    // console.log(config.emit)
 
     // if data, then we are using markdown files
     if ( source.data ){
-
-        config.locals.page = source.data;
-        
-        if (source.content) {
-            config.locals.page.content = source.content;    
-        }
+        config.locals.page = Object.assign({}, source.data)
         
         if (source.data.slug) {
-            config.filename = `${source.data.slug}.html`;
-            this.resourcePath = `${source.data.slug}`;
+            config.filename = `${source.data.slug}.html`
+            this.resourcePath = `${source.data.slug}`
         }
 
-        tmplFunc = pug.compile(source.data.template, config);
-        tmplFunc.dependencies.map( this.addDependency.bind(this) );
+        // console.log(source.data)
+        tmplFunc = pug.compile(source.data.template_file, config)
+        tmplFunc.dependencies.map( this.addDependency.bind(this) )
         // we need to return the rendered template so we can output it
 
-        source.content = tmplFunc(config.locals);
+        source.content = tmplFunc(config.locals)
         source.resourcePath = this.resourcePath;
+        
     }
     else {
         let process = true
