@@ -19,6 +19,16 @@ module.exports = function (source) {
     
     config.basedir = config.locals.basedir
 
+    if (config.vefa) {
+        config.locals = Object.assign(
+            config.locals, 
+            {
+                Vefa: require('vefa'),
+                vefa: {},
+                vefari: new Map()
+            }
+        )
+    }
 
     let context = {
         context: config.context,
