@@ -18,6 +18,13 @@ module.exports = function (source) {
     config.cache = config.cache || false
     
     config.basedir = config.locals.basedir
+    
+    if (config.vue) (
+        config.locals = Object.assign(
+            config.locals,
+            require("./plugins/django")(config.vueConfig, config.locals)
+        )
+    )
 
     if (config.vefa) {
         config.locals = Object.assign(
