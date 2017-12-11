@@ -1,7 +1,7 @@
 {
   "name": "vefa-html-loader",
-  "version": "2.6.0",
-  "description": "Webpack loader for Pug.JS",
+  "version": "2.7.0",
+  "description": "Webpack loader for use with Vefa templates",
   "author": "Cobey Potter <cobey@wellfire.co> (http://wellfire.co)",
   "repository": {
     "type": "git",
@@ -14,7 +14,16 @@
   "license": "MIT",
   "dependencies": {
     "loader-utils": "1.1.x",
-    "pug": "2.0.0-rc.2"
+    "markdown-it": "^8.4.0",
+    "markdown-it-abbr": "^1.0.4",
+    "markdown-it-anchor": "^4.0.0",
+    "markdown-it-attrs": "^1.2.0",
+    "markdown-it-block-image": "0.0.3",
+    "markdown-it-container": "^2.0.0",
+    "markdown-it-deflist": "^2.0.3",
+    "markdown-it-footnote": "^3.0.1",
+    "typogr": "^0.6.7",
+    "pug": "2.0.0-rc.4"
   }
 }
 
