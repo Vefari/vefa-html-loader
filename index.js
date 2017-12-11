@@ -4,10 +4,10 @@ const pug = require('pug');
 
 module.exports = function (source) {
     this.cacheable && this.cacheable(true);
-    
+
     // get config
     let config = utils.getOptions(this);
-    
+
     // fill out anything else needed in the config
     config.filename = this.resourcePath
     config.doctype = config.doctype || "html"
@@ -16,19 +16,23 @@ module.exports = function (source) {
     config.pretty = config.pretty || false
     config.self = config.self || false
     config.cache = config.cache || false
-    
+
     config.basedir = config.locals.basedir
-    
+
     if (config.vue) (
         config.locals = Object.assign(
             config.locals,
-            require("./plugins/django")(config.vueConfig, config.locals)
+            require("./plugins/django")(config.localConfig, config.locals)
         )
     )
 
+    if (config.markdown) {
+        config.locals.markdown = require("./plugins/markdown")
+    }
+
     if (config.vefa) {
         config.locals = Object.assign(
-            config.locals, 
+            config.locals,
             {
                 Vefa: require('vefa'),
                 vefa: {},
@@ -46,7 +50,7 @@ module.exports = function (source) {
     // if data, then we are using markdown files
     if ( source.data ){
         config.locals.page = Object.assign({}, source.data)
-        
+
         if (source.data.slug) {
             config.filename = `${source.data.slug}.html`
             this.resourcePath = `${source.data.slug}`
@@ -59,38 +63,38 @@ module.exports = function (source) {
 
         source.content = tmplFunc(config.locals)
         source.resourcePath = this.resourcePath;
-        
+
     }
     else {
         let process = true
 
         if (config.emit) {
             // only process the files we want to emit
-            
+
             // break up the file path into the parts that we need
             let req_parts = utils.interpolateName(
                 this,
                 "[folder]!![path]!![name]!![ext]",
                 context
             )
-            
+
             const [folder, process_path, file, file_ext] = req_parts.split('!!')
             let process_path_parts = process_path.split("/")
-            
+
             let parts_check = config.emit.indexOf(process_path_parts[0]);
-            
+
             // check for a full path
             let path_check = config.emit.indexOf(process_path);
-            
+
             // check for full path plus name
             let deep_file_check = config.emit.indexOf(`${process_path}${file}`);
             let file_check = config.emit.indexOf(`${file}.${file_ext}`);
-            
+
             if ( parts_check < 0 && path_check < 0 && deep_file_check < 0 && file_check < 0) {
                 process = false
-            } 
+            }
         }
-        
+
         if (process) {
             // compile the template to a function
             tmplFunc = pug.compile(source, config)
@@ -100,6 +104,6 @@ module.exports = function (source) {
             source = tmplFunc(config.locals)
         }
     }
-    
+
     return source;
 }
