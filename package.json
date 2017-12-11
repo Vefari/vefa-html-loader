@@ -1,6 +1,6 @@
 {
   "name": "vefa-html-loader",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "Webpack loader for use with Vefa templates",
   "author": "Cobey Potter <cobey@wellfire.co> (http://wellfire.co)",
   "repository": {
