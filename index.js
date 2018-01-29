@@ -29,6 +29,9 @@ module.exports = function (source) {
     if (config.markdown) {
         config.locals.markdown = require("./plugins/markdown")
     }
+    if (config.markdown && !config.vue) {
+        config.filters.markdown = require("./plugins/markdown")
+    }
 
     if (config.vefa) {
         config.locals = Object.assign(
