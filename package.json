@@ -1,6 +1,6 @@
 {
   "name": "vefa-html-loader",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "Webpack loader for use with Vefa templates",
   "author": "Cobey Potter <cobey@wellfire.co> (http://wellfire.co)",
   "repository": {
@@ -22,8 +22,7 @@
     "markdown-it-container": "^2.0.0",
     "markdown-it-deflist": "^2.0.3",
     "markdown-it-footnote": "^3.0.1",
-    "typogr": "^0.6.7",
-    "pug": "2.0.0-rc.4"
+    "pug": "^2.0.0",
+    "typogr": "^0.6.7"
   }
 }
-
